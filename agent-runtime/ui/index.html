@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentLab Console</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #11172a;
+      --panel-2: #161d33;
+      --text: #e8ecf8;
+      --muted: #9aa6bf;
+      --accent: #7c9cff;
+      --accent-2: #9b7cff;
+      --danger: #ff6b6b;
+      --success: #53d769;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --mono: "Cascadia Code", "Consolas", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at top left, rgba(124, 156, 255, 0.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(155, 124, 255, 0.18), transparent 30%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 56px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 650px;
+      line-height: 1.6;
+      margin: 18px 0 0;
+    }
+
+    .status-card {
+      min-width: 260px;
+      border: 1px solid var(--border);
+      background: rgba(17, 23, 42, 0.74);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .status-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+    }
+
+    .status-value {
+      font-family: var(--mono);
+      color: var(--success);
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: rgba(17, 23, 42, 0.86);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .panel p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin: 18px 0 8px;
+      font-weight: 650;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 13px 14px;
+      font: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: rgba(124, 156, 255, 0.8);
+      box-shadow: 0 0 0 4px rgba(124, 156, 255, 0.12);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 750;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 14px 30px rgba(124, 156, 255, 0.22);
+      transition: transform 0.16s ease, filter 0.16s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    button.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+      border: 1px solid var(--border);
+    }
+
+    button.danger {
+      background: rgba(255, 107, 107, 0.18);
+      color: #ffd5d5;
+      box-shadow: none;
+      border: 1px solid rgba(255, 107, 107, 0.28);
+    }
+
+    .output {
+      min-height: 260px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      background: #070b16;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      color: #dbe5ff;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      color: #dfe6ff;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      font-weight: 650;
+    }
+
+    .small-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: rgba(83, 215, 105, 0.14);
+      border: 1px solid rgba(83, 215, 105, 0.32);
+      color: #c9ffd2;
+      padding: 12px 16px;
+      border-radius: 16px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        display: block;
+      }
+
+      .status-card {
+        margin-top: 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">AgentLab Console</div>
+        <h1>Idea to Queue Launcher</h1>
+        <p class="subtitle">
+          Turn a rough app idea into a ready-to-run PowerShell command for your Codex queue generator.
+          This page is local-only and does not directly run scripts.
+        </p>
+      </div>
+
+      <aside class="status-card">
+        <div class="status-label">AgentLab Root</div>
+        <div class="status-value" id="rootPath">C:\Users\danie\Documents\codex-tests\AgentLab</div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>1. Describe the app idea</h2>
+        <p>
+          Keep it rough. The queue item generator will turn this into a detailed `[READY]` queue item.
+        </p>
+
+        <label for="idea">App Idea</label>
+        <textarea id="idea" placeholder="Example: I want a Tauri desktop app that lets me paste a Spotify playlist link, search for matching YouTube videos, preview matches, and create a YouTube playlist."></textarea>
+
+        <div class="row">
+          <div>
+            <label for="mode">Build Mode</label>
+            <select id="mode">
+              <option value="queue">Queue only</option>
+              <option value="standard">Queue + standard build command</option>
+              <option value="production">Queue + production build command</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="priority">Priority Hint</label>
+            <select id="priority">
+              <option value="">No priority hint</option>
+              <option value="Priority: Low">Low</option>
+              <option value="Priority: Medium">Medium</option>
+              <option value="Priority: High">High</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="appType">App Type Hint</label>
+            <select id="appType">
+              <option value="">Let agent choose</option>
+              <option value="Preferred app type: Tauri desktop app">Tauri desktop app</option>
+              <option value="Preferred app type: Web app">Web app</option>
+              <option value="Preferred app type: Discord bot">Discord bot</option>
+              <option value="Preferred app type: CLI tool">CLI tool</option>
+              <option value="Preferred app type: API service">API service</option>
+              <option value="Preferred app type: Local LLM app">Local LLM app</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="quality">Quality Hint</label>
+            <select id="quality">
+              <option value="Quality bar: production-quality, not a throwaway MVP">Production-quality</option>
+              <option value="Quality bar: polished personal tool, still maintainable">Polished personal tool</option>
+              <option value="Quality bar: fast prototype, but with clean structure">Fast prototype</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="extra">Extra Constraints</label>
+        <textarea id="extra" style="min-height: 110px;" placeholder="Optional: Windows-first, no cloud deployment, must use SQLite, must have a premium UI, should avoid paid APIs, etc."></textarea>
+
+        <div class="buttons">
+          <button onclick="generateCommand()">Generate Command</button>
+          <button class="secondary" onclick="copyCommand()">Copy Command</button>
+          <button class="secondary" onclick="copyQueuePath()">Copy Queue Path</button>
+          <button class="danger" onclick="clearForm()">Clear</button>
+        </div>
+
+        <div class="hint">
+          After copying the command, paste it into PowerShell. The browser cannot run local PowerShell directly.
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>2. PowerShell command</h2>
+        <p>
+          Copy this into PowerShell to add the idea to your queue.
+        </p>
+
+        <div class="output" id="output">Your generated command will appear here.</div>
+
+        <div class="buttons">
+          <button onclick="copyCommand()">Copy Command</button>
+          <button class="secondary" onclick="generateRunNext('standard')">Generate Standard Run</button>
+          <button class="secondary" onclick="generateRunNext('production')">Generate Production Run</button>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Queue Generator</span>
+          <span class="pill">Static HTML</span>
+          <span class="pill">No deployment</span>
+          <span class="pill">Windows-first</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" style="margin-top: 22px;">
+      <div class="panel">
+        <h2>Typical workflow</h2>
+        <ol class="small-list">
+          <li>Type a rough app idea.</li>
+          <li>Generate the PowerShell command.</li>
+          <li>Paste it into PowerShell to append a `[READY]` queue item.</li>
+          <li>Open `queue.md` and sanity-check the generated queue item.</li>
+          <li>Run the standard or production pipeline.</li>
+          <li>Inspect the app's `AGENT_REPORT.md` when finished.</li>
+        </ol>
+      </div>
+
+      <div class="panel">
+        <h2>Useful paths</h2>
+        <div class="output" style="min-height: 170px;">Queue:
+C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+
+Apps:
+C:\Users\danie\Documents\codex-tests\AgentLab\apps
+
+Scripts:
+C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\scripts
+
+Prompts:
+C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\prompts</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Copied.</div>
+
+  <script>
+    const root = "C:\\Users\\danie\\Documents\\codex-tests\\AgentLab";
+    const addIdeaScript = `${root}\\agent-runtime\\scripts\\add-idea-to-queue.ps1`;
+    const runNextScript = `${root}\\agent-runtime\\scripts\\run-next-queue-item.ps1`;
+    const queuePath = `${root}\\queue\\queue.md`;
+
+    function psEscape(value) {
+      return value.replace(/'/g, "''");
+    }
+
+    function buildIdeaText() {
+      const idea = document.getElementById("idea").value.trim();
+      const priority = document.getElementById("priority").value.trim();
+      const appType = document.getElementById("appType").value.trim();
+      const quality = document.getElementById("quality").value.trim();
+      const extra = document.getElementById("extra").value.trim();
+
+      let parts = [];
+
+      if (idea) {
+        parts.push(idea);
+      }
+
+      if (appType) {
+        parts.push(appType + ".");
+      }
+
+      if (priority) {
+        parts.push(priority + ".");
+      }
+
+      if (quality) {
+        parts.push(quality + ".");
+      }
+
+      if (extra) {
+        parts.push("Additional constraints: " + extra);
+      }
+
+      return parts.join("\n\n");
+    }
+
+    function generateCommand() {
+      const mode = document.getElementById("mode").value;
+      const ideaText = buildIdeaText();
+
+      if (!ideaText.trim()) {
+        setOutput("Type an app idea first.");
+        return;
+      }
+
+      const addCommand = `powershell -ExecutionPolicy Bypass -File "${addIdeaScript}" -Idea '${psEscape(ideaText)}'`;
+
+      let finalCommand = addCommand;
+
+      if (mode === "standard") {
+        finalCommand += `\n\n# Then run the standard pipeline:\npowershell -ExecutionPolicy Bypass -File "${runNextScript}" -Mode standard`;
+      }
+
+      if (mode === "production") {
+        finalCommand += `\n\n# Then run the production pipeline:\npowershell -ExecutionPolicy Bypass -File "${runNextScript}" -Mode production`;
+      }
+
+      setOutput(finalCommand);
+    }
+
+    function generateRunNext(mode) {
+      const command = `powershell -ExecutionPolicy Bypass -File "${runNextScript}" -Mode ${mode}`;
+      setOutput(command);
+    }
+
+    function setOutput(value) {
+      document.getElementById("output").textContent = value;
+    }
+
+    async function copyCommand() {
+      const text = document.getElementById("output").textContent;
+
+      if (!text || text === "Your generated command will appear here.") {
+        showToast("Nothing to copy yet.");
+        return;
+      }
+
+      await navigator.clipboard.writeText(text);
+      showToast("Command copied.");
+    }
+
+    async function copyQueuePath() {
+      await navigator.clipboard.writeText(queuePath);
+      showToast("Queue path copied.");
+    }
+
+    function clearForm() {
+      document.getElementById("idea").value = "";
+      document.getElementById("extra").value = "";
+      document.getElementById("priority").value = "";
+      document.getElementById("appType").value = "";
+      document.getElementById("quality").value = "Quality bar: production-quality, not a throwaway MVP";
+      document.getElementById("mode").value = "queue";
+      setOutput("Your generated command will appear here.");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1600);
+    }
+  </script>
+</body>
+</html>
