@@ -297,13 +297,13 @@ $UpdatedQueueText | Set-Content -Path $QueueFile -Encoding UTF8
 
 switch ($Mode) {
     "lightweight" {
-        $Agents = @("scaffolder", "builder", "tester", "reviewer")
+        $Agents = @("scaffolder", "analyst", "story-planner", "dev", "qa-reviewer", "reviewer")
     }
     "standard" {
-        $Agents = @("scaffolder", "builder", "tester", "refiner", "tester", "reviewer", "deployer", "reviewer")
+        $Agents = @("scaffolder", "analyst", "pm", "architect", "story-planner", "dev", "qa-reviewer", "deployer", "reviewer")
     }
     "production" {
-        $Agents = @("scaffolder", "builder", "tester", "refiner", "tester", "refiner", "tester", "reviewer", "deployer", "reviewer")
+        $Agents = @("scaffolder", "analyst", "pm", "ux-designer", "architect", "story-planner", "dev", "qa-reviewer", "refiner", "qa-reviewer", "deployer", "reviewer")
     }
 }
 

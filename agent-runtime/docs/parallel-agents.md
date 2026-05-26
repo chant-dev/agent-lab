@@ -112,11 +112,11 @@ Do not use this until the basic workflow works.
 For multiple apps, run the full pipeline per app:
 
 ```txt
-App A: Scaffolder -> Builder -> Tester -> Refiner -> Tester -> Reviewer -> Deployer -> Reviewer
-App B: Scaffolder -> Builder -> Tester -> Refiner -> Tester -> Reviewer -> Deployer -> Reviewer
+App A: Scaffolder -> Analyst -> PM -> Architect -> Story Planner -> Dev -> QA Reviewer -> Deployer -> Reviewer
+App B: Scaffolder -> Analyst -> PM -> Architect -> Story Planner -> Dev -> QA Reviewer -> Deployer -> Reviewer
 ```
 
-Avoid running Builder and Refiner simultaneously on the same app.
+Avoid running Developer, QA Reviewer, and Refiner simultaneously on the same app.
 
 ---
 
@@ -164,9 +164,12 @@ Examples:
 
 ```txt
 agent/scaffolder-20260522-1015
-agent/builder-20260522-1030
-agent/tester-20260522-1110
-agent/refiner-20260522-1145
+agent/analyst-20260522-1020
+agent/pm-20260522-1030
+agent/architect-20260522-1045
+agent/story-planner-20260522-1100
+agent/dev-20260522-1115
+agent/qa-reviewer-20260522-1145
 agent/reviewer-20260522-1210
 agent/deployer-20260522-1230
 ```

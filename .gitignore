@@ -9,6 +9,12 @@ agent-runtime/logs/*
 worktrees/
 .agentlab-local-git-backups/
 
+# Local BMAD Method installer output. Recreate with:
+# .\agent-runtime\scripts\install-bmad-method.ps1
+.agents/
+_bmad/
+_bmad-output/
+
 # Generated app repositories are local products of AgentLab.
 apps/*
 !apps/.gitkeep

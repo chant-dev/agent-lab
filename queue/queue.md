@@ -96,6 +96,7 @@ Production Requirements:
 - Must run locally on Windows
 - Must use a scalable folder structure
 - Must create an app-specific AGENTS.md before implementation begins
+- Must create BMAD-style planning artifacts under docs\planning where practical
 - Must include clear setup instructions
 - Must include tests where practical
 - Must include a build/package/deploy path
@@ -118,6 +119,7 @@ Secrets and Environment Variables:
 
 Definition of Done:
 - App works end-to-end for the primary use case
+- Product brief, PRD, architecture, story plan, and QA review exist or are explicitly marked not applicable
 - Validation commands pass or blockers are documented
 - README includes setup, run, test, build, and package/deploy instructions
 - .env.example exists if config is required
