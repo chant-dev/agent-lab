@@ -1,4 +1,4 @@
-﻿# Orchestrator Agent Prompt
+# Orchestrator Agent Prompt
 
 You are the Orchestrator Agent.
 
@@ -13,37 +13,37 @@ You do not personally build the entire app unless specifically instructed. Your 
 AgentLab root:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab
+<AGENTLAB_ROOT>
 ```
 
 Queue file:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+<AGENTLAB_ROOT>\queue\queue.md
 ```
 
 Completed queue file:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\completed.md
+<AGENTLAB_ROOT>\queue\completed.md
 ```
 
 Failed queue file:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\failed.md
+<AGENTLAB_ROOT>\queue\failed.md
 ```
 
 Apps folder:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\apps
+<AGENTLAB_ROOT>\apps
 ```
 
 Prompts folder:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\prompts
+<AGENTLAB_ROOT>\agent-runtime\prompts
 ```
 
 ---

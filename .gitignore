@@ -1,0 +1,44 @@
+# Local environment
+.env
+.env.*
+!.env.example
+
+# AgentLab local output
+agent-runtime/logs/*
+!agent-runtime/logs/.gitkeep
+worktrees/
+.agentlab-local-git-backups/
+
+# Generated app repositories are local products of AgentLab.
+apps/*
+!apps/.gitkeep
+!apps/README.md
+
+# Node / frontend artifacts
+node_modules/
+dist/
+build/
+.vite/
+.next/
+coverage/
+command-history.json
+*.log
+
+# Python artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Runtime databases
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.sqlite3-journal
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

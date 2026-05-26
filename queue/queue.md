@@ -1,4 +1,4 @@
-﻿# Agent Queue
+# Agent Queue
 
 This is the active work queue for autonomous Codex development.
 
@@ -32,9 +32,11 @@ The task failed and needs human review or a later retry.
 
 ## Queue Item Template
 
+`<AGENTLAB_ROOT>` means the folder where this repository was cloned. The queue generator should replace it with the actual checkout path when appending real queue items.
+
 ```md
 ## [READY] app-name
-Path: C:\Users\danie\Documents\codex-tests\AgentLab\apps\app-name
+Path: <AGENTLAB_ROOT>\apps\app-name
 Type: Desktop app / Web app / CLI tool / API service / Discord bot / Mobile app / Full-stack app
 Stack: Recommended stack here
 Priority: Medium
@@ -138,4 +140,3 @@ Build this as a production-quality app, not a throwaway MVP. Prefer maintainable
 ---
 
 ## Active Queue Items
-

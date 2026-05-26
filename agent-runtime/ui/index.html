@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -301,7 +301,7 @@
 
       <aside class="status-card">
         <div class="status-label">AgentLab Root</div>
-        <div class="status-value" id="rootPath">C:\Users\danie\Documents\codex-tests\AgentLab</div>
+        <div class="status-value" id="rootPath">&lt;AGENTLAB_ROOT&gt;</div>
       </aside>
     </section>
 
@@ -414,16 +414,16 @@
       <div class="panel">
         <h2>Useful paths</h2>
         <div class="output" style="min-height: 170px;">Queue:
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+&lt;AGENTLAB_ROOT&gt;\queue\queue.md
 
 Apps:
-C:\Users\danie\Documents\codex-tests\AgentLab\apps
+&lt;AGENTLAB_ROOT&gt;\apps
 
 Scripts:
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\scripts
+&lt;AGENTLAB_ROOT&gt;\agent-runtime\scripts
 
 Prompts:
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\prompts</div>
+&lt;AGENTLAB_ROOT&gt;\agent-runtime\prompts</div>
       </div>
     </section>
   </main>
@@ -431,7 +431,7 @@ C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\prompts</div>
   <div class="toast" id="toast">Copied.</div>
 
   <script>
-    const root = "C:\\Users\\danie\\Documents\\codex-tests\\AgentLab";
+    const root = "[AgentLab checkout root]";
     const addIdeaScript = `${root}\\agent-runtime\\scripts\\add-idea-to-queue.ps1`;
     const runNextScript = `${root}\\agent-runtime\\scripts\\run-next-queue-item.ps1`;
     const queuePath = `${root}\\queue\\queue.md`;

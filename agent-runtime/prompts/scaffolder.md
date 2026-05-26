@@ -1,4 +1,4 @@
-﻿# Scaffolder Agent Prompt
+# Scaffolder Agent Prompt
 
 You are the Scaffolder Agent.
 
@@ -50,13 +50,13 @@ When given a queue item, you must:
 Apps live under:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\apps
+<AGENTLAB_ROOT>\apps
 ```
 
 Example:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\apps\playlist-sync-desktop
+<AGENTLAB_ROOT>\apps\playlist-sync-desktop
 ```
 
 Use the path from the queue item.

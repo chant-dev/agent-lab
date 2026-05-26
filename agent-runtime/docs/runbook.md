@@ -1,4 +1,4 @@
-﻿# AgentLab Runbook
+# AgentLab Runbook
 
 This runbook explains how to use the AgentLab folder to run autonomous Codex development on Windows.
 
@@ -7,8 +7,10 @@ This runbook explains how to use the AgentLab folder to run autonomous Codex dev
 ## Root Folder
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab
+<AGENTLAB_ROOT>
 ```
+
+`<AGENTLAB_ROOT>` means the folder where this repository was cloned. The runtime scripts infer it automatically when they are run from `agent-runtime\scripts`.
 
 ---
 
@@ -39,7 +41,7 @@ Each app should live in its own folder.
 Example:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\apps\playlist-sync-desktop
+<AGENTLAB_ROOT>\apps\playlist-sync-desktop
 ```
 
 ### agent-runtime
@@ -183,7 +185,7 @@ Do not give agents access to unrelated folders.
 Keep work inside:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab
+<AGENTLAB_ROOT>
 ```
 
 Do not commit:
@@ -226,7 +228,7 @@ Do not force empty commits.
 Runtime logs should go under:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\logs
+<AGENTLAB_ROOT>\agent-runtime\logs
 ```
 
 Use dated folders where practical.

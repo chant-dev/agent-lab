@@ -1,11 +1,11 @@
-﻿# Failed or Blocked Agent Queue Items
+# Failed or Blocked Agent Queue Items
 
 This file stores queue items that failed, became blocked, or require human review.
 
 When a task cannot continue, move the queue item from:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+<AGENTLAB_ROOT>\queue\queue.md
 ```
 
 to this file.
@@ -47,4 +47,3 @@ Recovery Notes:
 ---
 
 ## Failed or Blocked Items
-

@@ -1,4 +1,4 @@
-﻿param(
+param(
     [Parameter(Mandatory=$true)]
     [string]$RepoPath,
 
@@ -10,11 +10,16 @@
 
     [string]$Sandbox = "workspace-write",
 
+    [int]$HeartbeatSeconds = 15,
+
     [switch]$SkipGitBranch
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+$ScriptRoot = Split-Path -Parent $PSCommandPath
+. (Join-Path $ScriptRoot "codex-process.ps1")
 
 if (!(Get-Command codex -ErrorAction SilentlyContinue)) {
     throw "Codex CLI was not found. Install or sign into Codex CLI before running this script."
@@ -47,9 +52,10 @@ try {
         git init | Out-Null
     }
 
+    $PromptName = [System.IO.Path]::GetFileNameWithoutExtension($PromptFile)
+
     if (!$SkipGitBranch) {
         $Timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
-        $PromptName = [System.IO.Path]::GetFileNameWithoutExtension($PromptFile)
         $BranchName = "agent/$PromptName-$Timestamp"
 
         $CurrentStatus = git status --porcelain
@@ -61,8 +67,20 @@ try {
         git checkout -b $BranchName | Out-Null
     }
 
-    $FullPrompt | codex exec --sandbox $Sandbox -
+    $Result = Invoke-CodexExec `
+        -InputText $FullPrompt `
+        -Sandbox $Sandbox `
+        -Label $PromptName `
+        -HeartbeatSeconds $HeartbeatSeconds
 
+    if ($Result.ExitCode -ne 0) {
+        Write-Host ""
+        Write-Host "Codex pass failed for:"
+        Write-Host $PromptFile
+        exit $Result.ExitCode
+    }
+
+    Write-Host ""
     Write-Host "Codex pass completed for:"
     Write-Host $PromptFile
 }

@@ -1,11 +1,21 @@
 ﻿param(
-    [string]$Root = "C:\Users\danie\Documents\codex-tests\AgentLab"
+    [string]$Root = ""
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Continue"
 
+$ScriptRoot = Split-Path -Parent $PSCommandPath
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    $Root = (Resolve-Path (Join-Path $ScriptRoot "..\..")).Path
+} else {
+    $Root = (Resolve-Path $Root).Path
+}
+
 $RequiredPaths = @(
+    "README.md",
+    ".gitignore",
+
     "queue\queue.md",
     "queue\completed.md",
     "queue\failed.md",
@@ -24,7 +34,13 @@ $RequiredPaths = @(
     "agent-runtime\docs\runbook.md",
     "agent-runtime\docs\parallel-agents.md",
 
+    "agent-runtime\console\package.json",
+    "agent-runtime\console\README.md",
+    "agent-runtime\console\server\src\config.ts",
+    "agent-runtime\console\client\src\App.tsx",
+
     "agent-runtime\scripts\invoke-codex.ps1",
+    "agent-runtime\scripts\codex-process.ps1",
     "agent-runtime\scripts\add-idea-to-queue.ps1",
     "agent-runtime\scripts\run-agent-pass.ps1",
     "agent-runtime\scripts\run-next-queue-item.ps1",

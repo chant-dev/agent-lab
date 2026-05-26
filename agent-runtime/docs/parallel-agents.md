@@ -1,4 +1,4 @@
-﻿# Parallel Agents Guide
+# Parallel Agents Guide
 
 This guide explains how to run multiple Codex agents against multiple apps without creating conflicts.
 
@@ -69,10 +69,12 @@ Only go higher if:
 
 ## Safe Parallel Layout
 
+`<AGENTLAB_ROOT>` means the folder where this repository was cloned.
+
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\apps\app-a
-C:\Users\danie\Documents\codex-tests\AgentLab\apps\app-b
-C:\Users\danie\Documents\codex-tests\AgentLab\apps\app-c
+<AGENTLAB_ROOT>\apps\app-a
+<AGENTLAB_ROOT>\apps\app-b
+<AGENTLAB_ROOT>\apps\app-c
 ```
 
 Each app should have:
@@ -95,8 +97,8 @@ Only use same-app parallel work if you understand Git worktrees.
 Example:
 
 ```txt
-git worktree add C:\Users\danie\Documents\codex-tests\AgentLab\worktrees\app-feature-a feature-a
-git worktree add C:\Users\danie\Documents\codex-tests\AgentLab\worktrees\app-feature-b feature-b
+git worktree add <AGENTLAB_ROOT>\worktrees\app-feature-a feature-a
+git worktree add <AGENTLAB_ROOT>\worktrees\app-feature-b feature-b
 ```
 
 Then agents work in separate worktree folders.
@@ -123,7 +125,7 @@ Avoid running Builder and Refiner simultaneously on the same app.
 Use one shared queue file:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+<AGENTLAB_ROOT>\queue\queue.md
 ```
 
 But mark items clearly.
@@ -180,8 +182,8 @@ Each parallel run should write logs to its own folder.
 Example:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\logs\2026-05-22\app-a
-C:\Users\danie\Documents\codex-tests\AgentLab\agent-runtime\logs\2026-05-22\app-b
+<AGENTLAB_ROOT>\agent-runtime\logs\2026-05-22\app-a
+<AGENTLAB_ROOT>\agent-runtime\logs\2026-05-22\app-b
 ```
 
 Logs should identify:

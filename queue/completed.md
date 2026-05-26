@@ -1,11 +1,11 @@
-﻿# Completed Agent Queue Items
+# Completed Agent Queue Items
 
 This file stores queue items that completed successfully.
 
 When a task finishes, move the completed queue item from:
 
 ```txt
-C:\Users\danie\Documents\codex-tests\AgentLab\queue\queue.md
+<AGENTLAB_ROOT>\queue\queue.md
 ```
 
 to this file.
@@ -22,7 +22,10 @@ Completed Date:
 Path:
 Final Verdict:
 Final Commit:
+Mode:
+
 Summary:
+Explain what shipped and where the detailed report lives.
 
 Original Queue Item:
 Paste or preserve the completed queue item here.
@@ -35,4 +38,3 @@ Final Notes:
 ---
 
 ## Completed Items
-

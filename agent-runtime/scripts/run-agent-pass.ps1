@@ -9,13 +9,20 @@
     [Parameter(Mandatory=$true)]
     [string]$TaskText,
 
-    [string]$Root = "C:\Users\danie\Documents\codex-tests\AgentLab",
+    [string]$Root = "",
 
     [string]$Sandbox = "workspace-write"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+$ScriptRoot = Split-Path -Parent $PSCommandPath
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    $Root = (Resolve-Path (Join-Path $ScriptRoot "..\..")).Path
+} else {
+    $Root = (Resolve-Path $Root).Path
+}
 
 $RepoPath = Join-Path $Root "apps\$AppName"
 $PromptFile = Join-Path $Root "agent-runtime\prompts\$Agent.md"
