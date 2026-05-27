@@ -1,6 +1,6 @@
 ﻿param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("scaffolder", "builder", "tester", "refiner", "reviewer", "deployer", "orchestrator")]
+    [ValidateSet("scaffolder", "analyst", "pm", "ux-designer", "architect", "story-planner", "dev", "qa-reviewer", "refiner", "reviewer", "deployer", "orchestrator", "builder", "tester")]
     [string]$Agent,
 
     [Parameter(Mandatory=$true)]

@@ -81,15 +81,16 @@ Use this workflow for most apps:
 1. Give rough app idea to Queue Item Generator Agent.
 2. Queue Item Generator appends a `[READY]` item to `queue.md`.
 3. Orchestrator selects a ready queue item.
-4. Scaffolder prepares the app folder.
-5. Builder implements the app.
-6. Tester validates and fixes issues.
-7. Refiner improves quality and polish.
-8. Tester validates again.
-9. Reviewer gives a release-readiness verdict.
-10. Deployer prepares release/package/deployment path.
-11. Reviewer performs final review.
-12. Orchestrator moves task to `completed.md` or `failed.md`.
+4. Scaffolder prepares the app folder and BMAD-style artifact structure.
+5. Analyst creates product context and assumptions.
+6. Product Manager creates the PRD.
+7. Architect creates architecture and project context.
+8. Story Planner creates epics, stories, and implementation readiness.
+9. Developer implements the first releasable version.
+10. QA Reviewer validates and fixes issues.
+11. Release Planner prepares release/package/deployment path.
+12. Final Reviewer gives a release-readiness verdict.
+13. Orchestrator moves task to `completed.md` or `failed.md`.
 
 ---
 
@@ -97,13 +98,14 @@ Use this workflow for most apps:
 
 ```txt
 Scaffolder
-Builder
-Tester
-Refiner
-Tester
-Reviewer
-Deployer
-Reviewer
+Analyst
+Product Manager
+Architect
+Story Planner
+Developer
+QA Reviewer
+Release Planner
+Final Reviewer
 ```
 
 ---
@@ -114,15 +116,17 @@ Use this for more serious apps:
 
 ```txt
 Scaffolder
-Builder
-Tester
+Analyst
+Product Manager
+UX Designer
+Architect
+Story Planner
+Developer
+QA Reviewer
 Refiner
-Tester
-Refiner
-Tester
-Reviewer
-Deployer
-Reviewer
+QA Reviewer
+Release Planner
+Final Reviewer
 ```
 
 ---
@@ -170,6 +174,7 @@ An app is not considered complete unless:
 - AGENTS.md exists
 - README.md exists
 - AGENT_REPORT.md exists
+- planning artifacts exist where practical
 - primary feature is implemented or blocker documented
 - validation commands were run where practical
 - build/package path is documented

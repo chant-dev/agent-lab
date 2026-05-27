@@ -23,7 +23,15 @@ $RequiredPaths = @(
     "apps",
 
     "agent-runtime\prompts\queue-item-generator.md",
+    "agent-runtime\prompts\_bmad-lifecycle.md",
     "agent-runtime\prompts\scaffolder.md",
+    "agent-runtime\prompts\analyst.md",
+    "agent-runtime\prompts\pm.md",
+    "agent-runtime\prompts\ux-designer.md",
+    "agent-runtime\prompts\architect.md",
+    "agent-runtime\prompts\story-planner.md",
+    "agent-runtime\prompts\dev.md",
+    "agent-runtime\prompts\qa-reviewer.md",
     "agent-runtime\prompts\builder.md",
     "agent-runtime\prompts\tester.md",
     "agent-runtime\prompts\refiner.md",
@@ -33,6 +41,7 @@ $RequiredPaths = @(
 
     "agent-runtime\docs\runbook.md",
     "agent-runtime\docs\parallel-agents.md",
+    "agent-runtime\docs\bmad-integration.md",
 
     "agent-runtime\console\package.json",
     "agent-runtime\console\README.md",
@@ -41,6 +50,7 @@ $RequiredPaths = @(
 
     "agent-runtime\scripts\invoke-codex.ps1",
     "agent-runtime\scripts\codex-process.ps1",
+    "agent-runtime\scripts\install-bmad-method.ps1",
     "agent-runtime\scripts\add-idea-to-queue.ps1",
     "agent-runtime\scripts\run-agent-pass.ps1",
     "agent-runtime\scripts\run-next-queue-item.ps1",
@@ -89,6 +99,12 @@ if (Get-Command npm -ErrorAction SilentlyContinue) {
     Write-Host "npm: FOUND"
 } else {
     Write-Host "npm: NOT FOUND"
+}
+
+if (Test-Path (Join-Path $Root ".agents\skills\bmad-agent-dev\SKILL.md")) {
+    Write-Host "BMAD Method skills: FOUND"
+} else {
+    Write-Host "BMAD Method skills: OPTIONAL - run agent-runtime\scripts\install-bmad-method.ps1 to install local BMAD skills"
 }
 
 Write-Host ""
